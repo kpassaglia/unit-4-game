@@ -5,15 +5,15 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/reset.css">
   <script type="text/javascript" src="assets/javascript/game.js"></script>
-  <title>Crystals Collector Game</title>
+  <title>EPL Coach Selector Game</title>
 </head>
 
 <body>
@@ -21,55 +21,118 @@
   <!-- nav/h1 -->
   <nav class="navbar navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">
-      <h1 id="test">Crystals Collector Game</h1>
+      <h1 id="test">EPL Coach Selector</h1>
     </span>
   </nav>
   <!-- directions  -->
 
   <div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Lets Go!</h4>
-    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so
-      that you can see how spacing within an alert works with this kind of content.</p>
-    <hr>
-    <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    <h4 class="alert-heading">How To Play</h4>
+    <p>You will be given a random number at the start of the game. <br> There are four coaches below. By clicking on a
+      coach you will add a specific amount of points to your total score. <br> You win the game by matching your total
+      score to the randomly generated number. You lose the game if your total score goes above the random number.
+      <br> The value of each coach is hidden from you until you click on it. <br> Each time the game is started, the
+      values of each coach will change.
+    </p>
+
   </div>
   <!-- random number  -->
   <div class="container">
     <div class="row">
       <div class="col-sm">
-        Random Number
+        <span id="goal"> Random Number </span>
       </div>
       <div class="col-sm">
-        Total Score
+        <span id="score" value=0> Total Score: 0 </span>
       </div>
       <div class="col-sm">
-        Wins / Losses
+        <div class="row">
+
+
+          <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" id="wins">Won: </li>
+              <li class="list-group-item" id="losses">Lost: </li>
+
+            </ul>
+          </div>
+
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-3">
-        <Button><img src="/assets/images/murcio.png" class="img-fluid" alt="Pochettino"></Button>
+        <Button class="btn-primary" id="pochettino"><img src="/assets/images/murcio.png" class="img-fluid" alt="Pochettino"></Button>
       </div>
       <div class="col-sm-3">
-        <img src="assets/images/kloppnew.png" class="img-fluid" alt="Klopp">
+        <Button class="btn-primary" id="klopp"><img src="assets/images/klopp2.png" class="img-fluid" alt="Klopp"></Button>
       </div>
       <div class="col-sm-3">
-        <Button><img src="/assets/images/man37569.png" class="img-fluid" alt="Emery"></Button>
+        <Button class="btn-primary" id="emery"><img src="/assets/images/man37569.png" class="img-fluid" alt="Emery"></Button>
       </div>
       <div class="col-sm-3">
-        <Button><img src="/assets/images/man37974.png" class="img-fluid" alt="Guardiola"></Button>
+        <Button class="btn-primary" id="guardiola"><img src="/assets/images/man37974.png" class="img-fluid" alt="Guardiola"></Button>
       </div>
     </div>
   </div>
   <!-- wins losses  -->
   <!-- 4 crystal elements -->
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+      var rand = Math.floor(Math.random() * (60 - 40) + 40);
+      var goalValue = $("#goal").text("Goal: " + rand);
+      $("#pochettino").val(Math.floor(Math.random() * 11));
+      console.log("P: " + $("#pochettino").attr("value"))
+      $("#klopp").val(Math.floor(Math.random() * 11));
+      console.log("K: " + $("#klopp").attr("value"));
+      $("#emery").val(Math.floor(Math.random() * 11));
+      console.log("E: " + $("#emery").attr("value"));
+      $("#guardiola").val(Math.floor(Math.random() * 11));
+      console.log("G: " + $("#guardiola").attr("value"));
+      winCount = 0
+      lossCount = 0
+      $("#wins").text("Won: " + winCount)
+      $("#losses").text("Lost: " + lossCount)
+      var score = 0;
+      var button = 0;
+
+      $(".btn-primary").on("click", function () {
+        button = $(this).val();
+        console.log(button)
+        score = parseInt(button) + parseInt(score);
+        console.log("critical " + score)
+        $("#score").val(score);
+        $("#score").text("Total Score: " + $("#score").val());
+        if (parseInt(score) > parseInt(rand)) {
+          console.log("you loose");
+          $("#losses").text()
+          lossCount++
+          $("#losses").text("Lost: " + lossCount)
+          score = 0;
+          reset();
+        } else if (parseInt(score) == parseInt(rand)) {
+          console.log("you win");
+          winCount++
+          $("#wins").text("Won: " + winCount)
+          score = 0;
+          reset();
+        } else {
+          console.log("not finished yet")
+          return
+        }
+      });
+    });
+
+
+  </script>
+
   <!-- score section  -->
 
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

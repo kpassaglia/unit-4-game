@@ -1,27 +1,33 @@
 
 
-var counter = 0;
-
-setGoal();
-var random = Math.floor(Math.random() * 10);
-console.log(random);
-
-///Random number assigned at the start of the game 
-
-function setGoal() {
-  var set= Math.floor(Math.random() * 10);
-  console.log(set);
-}
+function reset() {
 
 
-///crystals assigned random numbers
+    var score = 0;
+    var button = 0;
+    score = parseInt(button) + parseInt(score);
+    var rand = Math.floor(Math.random() * (60 - 40) + 40);
+    var goalValue = $("#goal").text("Goal: " + rand);
+    
+    $("#pochettino").val(Math.floor(Math.random() * 11));
+    console.log("P: " + $("#pochettino").attr("value"))
+    
+    $("#klopp").val(Math.floor(Math.random() * 11));
+    console.log("K: " + $("#klopp").attr("value"));
+    
+    $("#emery").val(Math.floor(Math.random() * 11));
+    console.log("E: " + $("#emery").attr("value"));
+    
+    $("#guardiola").val(Math.floor(Math.random() * 11));
+    console.log("G: " + $("#guardiola").attr("value"));
 
-// on click events for each button (jquery)
+    $("#score").val(score);
+    $("#score").text("Total Score: " + $("#score").val());
 
-//total score captured on the bottom 
+  
+ 
+};
 
-//appends to 
 
-//wins/losses print 
 
-//reset buttons 
+
